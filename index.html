@@ -127,6 +127,20 @@
       padding: 5px;
       border-radius: 5px;
     }
+
+    /* Notification box styles */
+    .notification-box {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #333;
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 10px;
+      font-size: 16px;
+      display: none;
+    }
   </style>
 
   <script>
@@ -155,7 +169,14 @@
     }
 
     function showNotification(message) {
-      // Notification box and countdown bar code...
+      const notificationBox = document.querySelector('.notification-box');
+      notificationBox.textContent = message;
+      notificationBox.style.display = 'block';
+
+      // Hide the notification after 3 seconds
+      setTimeout(() => {
+        notificationBox.style.display = 'none';
+      }, 3000);
     }
 
     function toggleContactForm() {
@@ -193,9 +214,11 @@
           body: JSON.stringify(payload),
         });
 
+        showNotification('Message sent successfully!');
         toggleContactForm(); // Hide the contact form after sending the message
       } catch (error) {
         console.error('Error sending the message to Discord:', error);
+        showNotification('Failed to send message. Please try again later.');
         // You can add a notification here if you want to inform the user about the error.
       }
     }
@@ -234,5 +257,9 @@
     <br>
     <button onclick="sendToDiscordAndToggle()">Send</button>
   </div>
+
+  <!-- Notification Box -->
+  <div class="notification-box"></div>
+
 </body>
 </html>
