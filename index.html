@@ -8,7 +8,19 @@
   <meta content="#000000" data-react-helmet="true" name="theme-color" />
 
   <style>
-    /* Styles... */
+    body {
+      background-color: black;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      height: 100vh;
+      font-size: 30px;
+      font-family: Arial, sans-serif;
+      user-select: none;
+      overflow: hidden;
+    }
 
     .logo-buttons {
       display: flex;
@@ -39,53 +51,198 @@
     }
 
     @media (max-width: 480px) {
-      /* Styles for smaller screens... */
+      body {
+        font-size: 40px;
+      }
+
+      .logo-button {
+        width: 100px;
+        height: 100px;
+        margin: 0 20px;
+      }
+
+      .logo-button img {
+        width: 60px;
+        height: 60px;
+      }
     }
 
     .typing-cursor {
-      /* Typing cursor styles... */
+      display: inline-block;
+      width: 10px;
+      height: 1em;
+      background-color: white;
+      animation: blink-caret 1s step-end infinite;
+    }
+
+    @keyframes blink-caret {
+      from, to {
+        border-color: transparent;
+      }
+      50% {
+        border-color: white;
+      }
     }
 
     h1 {
       margin-bottom: 20px;
     }
 
-    /* Contact Form Styles... */
+    .contact-form {
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .contact-form label,
+    .contact-form input,
+    .contact-form textarea,
+    .contact-form button {
+      margin: 5px;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      padding: 5px;
+      border-radius: 5px;
+    }
 
     .notification-box {
-      /* Notification box styles... */
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 300px;
+      padding: 15px;
+      background-color: rgba(255, 255, 255, 0.9);
+      border-radius: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+    }
+
+    .notification-box.active {
+      opacity: 1;
+      pointer-events: auto;
     }
 
     .countdown-bar {
-      /* Countdown bar styles... */
+      width: 100%;
+      height: 5px;
+      background-color: #e3e3e3;
+      border-radius: 5px;
+      margin-top: 10px;
     }
 
     .countdown-fill {
-      /* Countdown bar fill styles... */
+      height: 100%;
+      background-color: #66bb6a;
+      border-radius: 5px;
+      transition: width 1s linear;
     }
   </style>
 
   <script>
-    // Global variables and other scripts...
+    // Global variables
+    let notificationTimer;
 
     function redirectToLink(link) {
       window.location.href = link;
     }
 
     async function blinkCursor() {
-      // Blinking cursor code...
+      const cursorElement = document.querySelector('.typing-cursor');
+      while (true) {
+        cursorElement.style.visibility = 'visible';
+        await sleep(500);
+        cursorElement.style.visibility = 'hidden';
+        await sleep(500);
+      }
     }
 
     async function sleep(ms) {
-      // Sleep function code...
+      return new Promise(resolve => setTimeout(resolve, ms));
     }
 
     async function sendToDiscord() {
-      // Send to Discord function code...
+      const email = document.getElementById('email').value;
+      const message = document.getElementById('message').value;
+
+      const webhookUrl = 'YOUR_DISCORD_WEBHOOK_URL';
+      const data = {
+        content: "New Contact Form Submission:",
+        embeds: [{
+          title: "Contact Details",
+          fields: [
+            {
+              name: "Email:",
+              value: email
+            },
+            {
+              name: "Message:",
+              value: message
+            }
+          ],
+          color: 16711680 // You can customize the color here (e.g., red: 16711680, blue: 255)
+        }]
+      };
+
+      try {
+        const response = await fetch(webhookUrl, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+        });
+
+        if (response.ok) {
+          showNotification('Message sent successfully to Discord!');
+          document.getElementById('email').value = '';
+          document.getElementById('message').value = '';
+        } else {
+          showNotification('Failed to send message to Discord.');
+        }
+      } catch (error) {
+        console.error('Error sending message to Discord:', error);
+        showNotification('An error occurred while sending the message to Discord.');
+      }
     }
 
     function showNotification(message) {
-      // Notification box and countdown bar code...
+      const notificationBox = document.createElement('div');
+      notificationBox.classList.add('notification-box', 'active');
+
+      const messageElement = document.createElement('span');
+      messageElement.textContent = message;
+
+      const countdownBar = document.createElement('div');
+      countdownBar.classList.add('countdown-bar');
+
+      const countdownFill = document.createElement('div');
+      countdownFill.classList.add('countdown-fill');
+      countdownBar.appendChild(countdownFill);
+
+      notificationBox.appendChild(messageElement);
+      notificationBox.appendChild(countdownBar);
+
+      document.body.appendChild(notificationBox);
+
+      if (notificationTimer) {
+        clearTimeout(notificationTimer);
+      }
+
+      notificationTimer = setTimeout(() => {
+        countdownFill.style.width = '0';
+        setTimeout(() => {
+          document.body.removeChild(notificationBox);
+        }, 1000);
+      }, 3000);
     }
   </script>
 </head>
