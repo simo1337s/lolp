@@ -67,13 +67,27 @@
   </style>
 
   <script>
+    function sleep(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    async function typeSimo() {
+      const titleElement = document.querySelector('h1');
+      const word = 'simo';
+      for (let i = 0; i < word.length; i++) {
+        titleElement.textContent += word[i];
+        await sleep(500); // Adjust the typing speed (in milliseconds) here
+      }
+      titleElement.textContent += ' '; // Adding a space after the word "simo"
+    }
+
     function redirectToLink(link) {
       window.location.href = link;
     }
   </script>
 </head>
-<body>
-  <h1>simo</h1>
+<body onload="typeSimo()">
+  <h1></h1>
 
   <div class="logo-buttons">
     <div class="logo-button" onclick="redirectToLink('https://discord.com/')">
