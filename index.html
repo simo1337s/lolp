@@ -65,26 +65,13 @@
       }
     }
 
-    /* Add typing animation for the "simo" text */
-    .typing-text {
-      border-right: 0.15em solid white;
-      white-space: nowrap;
-      overflow: hidden;
-      animation: typing 1.5s steps(4, end) infinite;
-    }
-
-    @keyframes typing {
-      from {
-        width: 0;
-      }
-      to {
-        width: 4em;
-      }
-    }
-
-    /* Hide the "simo" text when it's not being animated */
-    .hidden {
-      display: none;
+    /* Add blinking typing cursor */
+    .typing-cursor {
+      display: inline-block;
+      width: 10px;
+      height: 1em;
+      background-color: white;
+      animation: blink-caret 1s step-end infinite;
     }
 
     @keyframes blink-caret {
@@ -98,44 +85,29 @@
   </style>
 
   <script>
-    async function sleep(ms) {
-      return new Promise(resolve => setTimeout(resolve, ms));
-    }
-
-    async function typeSimo() {
-      const titleElement = document.querySelector('.typing-text');
-      const word = 'simo';
-
-      while (true) {
-        for (let i = 0; i < word.length; i++) {
-          titleElement.classList.remove('hidden'); // Show the "simo" text
-          titleElement.textContent = word.slice(0, i + 1);
-          await sleep(300); // Adjust the typing speed (in milliseconds) here
-        }
-        await sleep(1000); // Wait for 1 second before clearing the text
-        titleElement.classList.add('hidden'); // Hide the "simo" text
-        await sleep(500); // Wait for 0.5 seconds before showing the "simo" text again
-      }
-    }
-
-    async function loopLogoButtons() {
-      const logoButtons = document.querySelector('.logo-buttons');
-
-      while (true) {
-        logoButtons.style.visibility = 'visible'; // Show the logo buttons
-        await sleep(2000); // Wait for 2 seconds before hiding the logo buttons
-        logoButtons.style.visibility = 'hidden'; // Hide the logo buttons
-        await sleep(500); // Wait for 0.5 seconds before showing the logo buttons again
-      }
-    }
-
     function redirectToLink(link) {
       window.location.href = link;
     }
+
+    async function blinkCursor() {
+      const cursorElement = document.querySelector('.typing-cursor');
+      while (true) {
+        cursorElement.style.visibility = 'visible';
+        await sleep(500);
+        cursorElement.style.visibility = 'hidden';
+        await sleep(500);
+      }
+    }
+
+    async function sleep(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
   </script>
 </head>
-<body onload="typeSimo(); loopLogoButtons()">
-  <h1 class="typing-text hidden"></h1>
+<body onload="blinkCursor()">
+  <h1>
+    simo<span class="typing-cursor"></span>
+  </h1>
 
   <div class="logo-buttons">
     <div class="logo-button" onclick="redirectToLink('https://discord.com/')">
