@@ -8,19 +8,7 @@
   <meta content="#000000" data-react-helmet="true" name="theme-color" />
 
   <style>
-    body {
-      background-color: black;
-      color: white;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      height: 100vh;
-      font-size: 30px;
-      font-family: Arial, sans-serif;
-      user-select: none;
-      overflow: hidden;
-    }
+    /* Styles... */
 
     .logo-buttons {
       display: flex;
@@ -51,61 +39,53 @@
     }
 
     @media (max-width: 480px) {
-      body {
-        font-size: 40px;
-      }
-
-      .logo-button {
-        width: 100px;
-        height: 100px;
-        margin: 0 20px;
-      }
-
-      .logo-button img {
-        width: 60px;
-        height: 60px;
-      }
+      /* Styles for smaller screens... */
     }
 
     .typing-cursor {
-      display: inline-block;
-      width: 10px;
-      height: 1em;
-      background-color: white;
-      animation: blink-caret 1s step-end infinite;
-    }
-
-    @keyframes blink-caret {
-      from, to {
-        border-color: transparent;
-      }
-      50% {
-        border-color: white;
-      }
+      /* Typing cursor styles... */
     }
 
     h1 {
       margin-bottom: 20px;
     }
+
+    /* Contact Form Styles... */
+
+    .notification-box {
+      /* Notification box styles... */
+    }
+
+    .countdown-bar {
+      /* Countdown bar styles... */
+    }
+
+    .countdown-fill {
+      /* Countdown bar fill styles... */
+    }
   </style>
 
   <script>
+    // Global variables and other scripts...
+
     function redirectToLink(link) {
       window.location.href = link;
     }
 
     async function blinkCursor() {
-      const cursorElement = document.querySelector('.typing-cursor');
-      while (true) {
-        cursorElement.style.visibility = 'visible';
-        await sleep(500);
-        cursorElement.style.visibility = 'hidden';
-        await sleep(500);
-      }
+      // Blinking cursor code...
     }
 
     async function sleep(ms) {
-      return new Promise(resolve => setTimeout(resolve, ms));
+      // Sleep function code...
+    }
+
+    async function sendToDiscord() {
+      // Send to Discord function code...
+    }
+
+    function showNotification(message) {
+      // Notification box and countdown bar code...
     }
   </script>
 </head>
@@ -128,5 +108,17 @@
       <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.seekicon.com%2Ffree-icon-download%2Ftiktok-icon_1.png&f=1&nofb=1&ipt=a93639fbcd400ccf5acd5994a91645bbc0e76015cfe808576ab9d74b30144fc0&ipo=images" alt="TikTok">
     </div>
   </div>
+
+  <!-- Contact Form -->
+  <div class="contact-form">
+    <label for="email">Contact Email:</label>
+    <input type="email" id="email" required>
+    <br>
+    <label for="message">Message:</label>
+    <textarea id="message" rows="4" required></textarea>
+    <br>
+    <button onclick="sendToDiscord()">Contact</button>
+  </div>
+
 </body>
 </html>
