@@ -166,9 +166,16 @@
       const notificationBox = document.querySelector('.notification-box');
       notificationBox.textContent = message;
       notificationBox.style.display = 'block';
-      setTimeout(() => {
-        notificationBox.style.display = 'none';
-      }, 3000);
+      let opacity = 1;
+      const interval = setInterval(() => {
+        opacity -= 0.05;
+        notificationBox.style.opacity = opacity;
+        if (opacity <= 0) {
+          clearInterval(interval);
+          notificationBox.style.display = 'none';
+          notificationBox.style.opacity = 1;
+        }
+      }, 100);
     }
 
     function toggleContactForm() {
