@@ -88,21 +88,19 @@
       margin-bottom: 20px;
     }
 
-    /* Styles for the contact button */
     .contact-button {
       position: fixed;
       bottom: 20px;
-      right: 20px; /* Move to bottom right corner */
+      right: 20px;
       background-color: white;
       color: black;
-      padding: 5px 10px; /* Reduced padding */
+      padding: 5px 10px;
       border: none;
       border-radius: 20px;
-      font-size: 18px; /* Reduced font size */
+      font-size: 18px;
       cursor: pointer;
     }
 
-    /* Styles for the contact form */
     .contact-form {
       display: none;
       flex-direction: column;
@@ -127,11 +125,10 @@
       border-radius: 5px;
     }
 
-    /* Notification box styles */
     .notification-box {
       position: fixed;
       bottom: 20px;
-      right: 20px; /* Move to bottom right corner */
+      right: 20px;
       background-color: #333;
       color: #fff;
       padding: 10px 20px;
@@ -142,8 +139,6 @@
   </style>
 
   <script>
-    // Global variables and other scripts...
-
     function redirectToLink(link) {
       window.location.href = link;
     }
@@ -170,8 +165,6 @@
       const notificationBox = document.querySelector('.notification-box');
       notificationBox.textContent = message;
       notificationBox.style.display = 'block';
-
-      // Hide the notification after 3 seconds
       setTimeout(() => {
         notificationBox.style.display = 'none';
       }, 3000);
@@ -213,11 +206,10 @@
         });
 
         showNotification('Message sent successfully!');
-        toggleContactForm(); // Hide the contact form after sending the message
+        toggleContactForm();
       } catch (error) {
         console.error('Error sending the message to Discord:', error);
         showNotification('Failed to send message. Please try again later.');
-        // You can add a notification here if you want to inform the user about the error.
       }
     }
   </script>
@@ -242,10 +234,8 @@
     </div>
   </div>
 
-  <!-- Contact Form Toggle Button -->
   <button class="contact-button" onclick="toggleContactForm()">Contact</button>
 
-  <!-- Contact Form -->
   <div class="contact-form">
     <label for="email">Contact Email:</label>
     <input type="email" id="email" required>
@@ -256,7 +246,6 @@
     <button onclick="sendToDiscordAndToggle()">Send</button>
   </div>
 
-  <!-- Notification Box -->
   <div class="notification-box"></div>
 
 </body>
