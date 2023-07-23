@@ -65,43 +65,49 @@
       }
     }
 
-    /* Add blinking animation for the typing icon */
-    .blinking-cursor {
-      animation: blink 1s step-end infinite;
+    /* Add typing animation for the "simo" text */
+    .typing-text {
+      border-right: 0.15em solid white;
+      white-space: nowrap;
+      overflow: hidden;
+      animation: typing 3s steps(4, end), blink-caret 0.75s step-end infinite;
     }
 
-    @keyframes blink {
+    @keyframes typing {
+      0% {
+        width: 0;
+      }
+      100% {
+        width: 4em;
+      }
+    }
+
+    @keyframes blink-caret {
       from, to {
-        opacity: 0;
+        border-color: transparent;
       }
       50% {
-        opacity: 1;
+        border-color: white;
       }
     }
   </style>
 
   <script>
-    function sleep(ms) {
+    async function sleep(ms) {
       return new Promise(resolve => setTimeout(resolve, ms));
     }
 
     async function typeSimo() {
-      const titleElement = document.querySelector('h1');
+      const titleElement = document.querySelector('.typing-text');
       const word = 'simo';
-      const cursorElement = document.createElement('span');
-      cursorElement.textContent = '|';
-      cursorElement.classList.add('blinking-cursor');
-
       while (true) {
         for (let i = 0; i < word.length; i++) {
-          titleElement.textContent += word[i];
+          titleElement.textContent = word.slice(0, i + 1);
           await sleep(500); // Adjust the typing speed (in milliseconds) here
         }
         await sleep(1000); // Wait for 1 second before clearing the text
         titleElement.textContent = ''; // Clear the text
         await sleep(500); // Wait for 0.5 seconds before typing again
-        titleElement.appendChild(cursorElement); // Add the blinking cursor again
-        await sleep(500); // Wait for 0.5 seconds before starting to type "simo" again
       }
     }
 
@@ -111,7 +117,7 @@
   </script>
 </head>
 <body onload="typeSimo()">
-  <h1></h1>
+  <h1 class="typing-text"></h1>
 
   <div class="logo-buttons">
     <div class="logo-button" onclick="redirectToLink('https://discord.com/')">
