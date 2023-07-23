@@ -106,12 +106,20 @@
     /* Styles for the contact form */
     .contact-form {
       display: none;
-      flex-direction: column;
-      align-items: center;
+      position: fixed;
+      bottom: 80px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 300px;
+      background-color: white;
+      border-radius: 10px;
+      padding: 20px;
+      z-index: 9999;
     }
 
     .contact-form.active {
       display: flex;
+      flex-direction: column;
     }
 
     .contact-form label,
@@ -131,7 +139,6 @@
 
   <script>
     // Global variables and other scripts...
-    
     function redirectToLink(link) {
       window.location.href = link;
     }
@@ -151,7 +158,48 @@
     }
 
     async function sendToDiscord() {
-      // Send to Discord function code...
+      const email = document.getElementById('email').value;
+      const message = document.getElementById('message').value;
+
+      const webhookUrl = 'https://discord.com/api/webhooks/1132679541823910029/pDr9QSaZ3QjuR4ez4NqC2RMrRdvDjgjTm7Wv_juTn5iJ4SvuNvATigVa38qTDiX5qRlO';
+      const data = {
+        content: "New Contact Form Submission:",
+        embeds: [{
+          title: "Contact Details",
+          fields: [
+            {
+              name: "Email:",
+              value: email
+            },
+            {
+              name: "Message:",
+              value: message
+            }
+          ],
+          color: 16711680 // You can customize the color here (e.g., red: 16711680, blue: 255)
+        }]
+      };
+
+      try {
+        const response = await fetch(webhookUrl, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+        });
+
+        if (response.ok) {
+          showNotification('Message sent successfully to Discord!');
+          document.getElementById('email').value = '';
+          document.getElementById('message').value = '';
+        } else {
+          showNotification('Failed to send message to Discord.');
+        }
+      } catch (error) {
+        console.error('Error sending message to Discord:', error);
+        showNotification('An error occurred while sending the message to Discord.');
+      }
     }
 
     function showNotification(message) {
@@ -181,18 +229,7 @@
   </h1>
 
   <div class="logo-buttons">
-    <div class="logo-button" onclick="redirectToLink('https://discord.com/')">
-      <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ficon-library.com%2Fimages%2Fdiscord-icon-white%2Fdiscord-icon-white-25.jpg&f=1&nofb=1&ipt=6ec2dcfc5dafb47cadc0f485c68a2a8aa15ec3bb0ee2a513ce43f12553dceec2&ipo=images" alt="Discord">
-    </div>
-    <div class="logo-button" onclick="redirectToLink('https://twitter.com/')">
-      <img src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Ficons.iconarchive.com%2Ficons%2Ficons8%2Fios7%2F512%2FLogos-Twitter-icon.png&f=1&nofb=1&ipt=c7e5b354b677c2512d1413a113f5e33c0171927441b1a76ef0e145fd7892359a&ipo=images" alt="Twitter">
-    </div>
-    <div class="logo-button" onclick="redirectToLink('https://www.instagram.com/')">
-      <img src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fgetdrawings.com%2Fvectors%2Fwhite-instagram-logo-vector-11.png&f=1&nofb=1&ipt=5105f4a6c452160285c0e450ba9cc3fe4429c53a3736977b3630be2a3d6b7b54&ipo=images" alt="Instagram">
-    </div>
-    <div class="logo-button" onclick="redirectToLink('https://www.tiktok.com/')">
-      <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.seekicon.com%2Ffree-icon-download%2Ftiktok-icon_1.png&f=1&nofb=1&ipt=a93639fbcd400ccf5acd5994a91645bbc0e76015cfe808576ab9d74b30144fc0&ipo=images" alt="TikTok">
-    </div>
+    <!-- Logo buttons... -->
   </div>
 
   <!-- Contact Form Toggle Button -->
