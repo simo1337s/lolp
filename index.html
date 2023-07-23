@@ -70,7 +70,7 @@
       border-right: 0.15em solid white;
       white-space: nowrap;
       overflow: hidden;
-      animation: typing 3s steps(4, end), blink-caret 0.75s step-end infinite;
+      animation: typing 3s steps(4, end);
     }
 
     @keyframes typing {
@@ -79,15 +79,6 @@
       }
       100% {
         width: 4em;
-      }
-    }
-
-    @keyframes blink-caret {
-      from, to {
-        border-color: transparent;
-      }
-      50% {
-        border-color: white;
       }
     }
   </style>
@@ -100,13 +91,23 @@
     async function typeSimo() {
       const titleElement = document.querySelector('.typing-text');
       const word = 'simo';
+      const logoButtons = document.querySelector('.logo-buttons');
+      logoButtons.style.visibility = 'hidden'; // Hide the logo buttons initially
+
+      // Create a space character placeholder for the "simo" text
+      titleElement.textContent = '\u00A0';
+
       while (true) {
+        // Show the logo buttons before typing "simo"
+        logoButtons.style.visibility = 'visible';
+
         for (let i = 0; i < word.length; i++) {
           titleElement.textContent = word.slice(0, i + 1);
           await sleep(500); // Adjust the typing speed (in milliseconds) here
         }
         await sleep(1000); // Wait for 1 second before clearing the text
-        titleElement.textContent = ''; // Clear the text
+        titleElement.textContent = '\u00A0'; // Clear the text by using the space character placeholder
+        logoButtons.style.visibility = 'hidden'; // Hide the logo buttons after clearing the text
         await sleep(500); // Wait for 0.5 seconds before typing again
       }
     }
