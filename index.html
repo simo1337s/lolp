@@ -88,11 +88,30 @@
       margin-bottom: 20px;
     }
 
+    /* Styles for the contact button */
+    .contact-button {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: white;
+      color: black;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 20px;
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    /* Styles for the contact form */
     .contact-form {
-      margin-top: 20px;
-      display: flex;
+      display: none;
       flex-direction: column;
       align-items: center;
+    }
+
+    .contact-form.active {
+      display: flex;
     }
 
     .contact-form label,
@@ -108,49 +127,11 @@
       padding: 5px;
       border-radius: 5px;
     }
-
-    .notification-box {
-      position: fixed;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 300px;
-      padding: 15px;
-      background-color: rgba(255, 255, 255, 0.9);
-      border-radius: 10px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s;
-    }
-
-    .notification-box.active {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    .countdown-bar {
-      width: 100%;
-      height: 5px;
-      background-color: #e3e3e3;
-      border-radius: 5px;
-      margin-top: 10px;
-    }
-
-    .countdown-fill {
-      height: 100%;
-      background-color: #66bb6a;
-      border-radius: 5px;
-      transition: width 1s linear;
-    }
   </style>
 
   <script>
-    // Global variables
-    let notificationTimer;
-
+    // Global variables and other scripts...
+    
     function redirectToLink(link) {
       window.location.href = link;
     }
@@ -170,79 +151,27 @@
     }
 
     async function sendToDiscord() {
-      const email = document.getElementById('email').value;
-      const message = document.getElementById('message').value;
-
-      const webhookUrl = 'YOUR_DISCORD_WEBHOOK_URL';
-      const data = {
-        content: "New Contact Form Submission:",
-        embeds: [{
-          title: "Contact Details",
-          fields: [
-            {
-              name: "Email:",
-              value: email
-            },
-            {
-              name: "Message:",
-              value: message
-            }
-          ],
-          color: 16711680 // You can customize the color here (e.g., red: 16711680, blue: 255)
-        }]
-      };
-
-      try {
-        const response = await fetch(webhookUrl, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(data)
-        });
-
-        if (response.ok) {
-          showNotification('Message sent successfully to Discord!');
-          document.getElementById('email').value = '';
-          document.getElementById('message').value = '';
-        } else {
-          showNotification('Failed to send message to Discord.');
-        }
-      } catch (error) {
-        console.error('Error sending message to Discord:', error);
-        showNotification('An error occurred while sending the message to Discord.');
-      }
+      // Send to Discord function code...
     }
 
     function showNotification(message) {
-      const notificationBox = document.createElement('div');
-      notificationBox.classList.add('notification-box', 'active');
+      // Notification box and countdown bar code...
+    }
 
-      const messageElement = document.createElement('span');
-      messageElement.textContent = message;
+    function toggleContactForm() {
+      const contactForm = document.querySelector('.contact-form');
+      const simoTitle = document.querySelector('h1');
+      const logoButtons = document.querySelector('.logo-buttons');
 
-      const countdownBar = document.createElement('div');
-      countdownBar.classList.add('countdown-bar');
-
-      const countdownFill = document.createElement('div');
-      countdownFill.classList.add('countdown-fill');
-      countdownBar.appendChild(countdownFill);
-
-      notificationBox.appendChild(messageElement);
-      notificationBox.appendChild(countdownBar);
-
-      document.body.appendChild(notificationBox);
-
-      if (notificationTimer) {
-        clearTimeout(notificationTimer);
+      if (contactForm.classList.contains('active')) {
+        contactForm.classList.remove('active');
+        simoTitle.style.display = 'block';
+        logoButtons.style.display = 'flex';
+      } else {
+        contactForm.classList.add('active');
+        simoTitle.style.display = 'none';
+        logoButtons.style.display = 'none';
       }
-
-      notificationTimer = setTimeout(() => {
-        countdownFill.style.width = '0';
-        setTimeout(() => {
-          document.body.removeChild(notificationBox);
-        }, 1000);
-      }, 3000);
     }
   </script>
 </head>
@@ -266,6 +195,9 @@
     </div>
   </div>
 
+  <!-- Contact Form Toggle Button -->
+  <button class="contact-button" onclick="toggleContactForm()">Contact</button>
+
   <!-- Contact Form -->
   <div class="contact-form">
     <label for="email">Contact Email:</label>
@@ -274,7 +206,7 @@
     <label for="message">Message:</label>
     <textarea id="message" rows="4" required></textarea>
     <br>
-    <button onclick="sendToDiscord()">Contact</button>
+    <button onclick="sendToDiscord()">Send</button>
   </div>
 
 </body>
