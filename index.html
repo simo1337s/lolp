@@ -64,6 +64,20 @@
         height: 60px;
       }
     }
+
+    /* Add blinking animation for the typing icon */
+    .blinking-cursor {
+      animation: blink 1s step-end infinite;
+    }
+
+    @keyframes blink {
+      from, to {
+        opacity: 0;
+      }
+      50% {
+        opacity: 1;
+      }
+    }
   </style>
 
   <script>
@@ -74,11 +88,21 @@
     async function typeSimo() {
       const titleElement = document.querySelector('h1');
       const word = 'simo';
-      for (let i = 0; i < word.length; i++) {
-        titleElement.textContent += word[i];
-        await sleep(500); // Adjust the typing speed (in milliseconds) here
+      const cursorElement = document.createElement('span');
+      cursorElement.textContent = '|';
+      cursorElement.classList.add('blinking-cursor');
+
+      while (true) {
+        for (let i = 0; i < word.length; i++) {
+          titleElement.textContent += word[i];
+          await sleep(500); // Adjust the typing speed (in milliseconds) here
+        }
+        await sleep(1000); // Wait for 1 second before clearing the text
+        titleElement.textContent = ''; // Clear the text
+        await sleep(500); // Wait for 0.5 seconds before typing again
+        titleElement.appendChild(cursorElement); // Add the blinking cursor again
+        await sleep(500); // Wait for 0.5 seconds before starting to type "simo" again
       }
-      titleElement.textContent += ' '; // Adding a space after the word "simo"
     }
 
     function redirectToLink(link) {
