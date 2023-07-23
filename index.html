@@ -21,6 +21,7 @@
       font-family: Arial, sans-serif;
       user-select: none;
       overflow: hidden;
+      margin: 0;
     }
 
     .logo-buttons {
@@ -128,7 +129,7 @@
 
     .notification-box {
       position: fixed;
-      bottom: 20px;
+      bottom: 80px;
       right: 20px;
       background-color: #333;
       color: #fff;
@@ -136,6 +137,12 @@
       border-radius: 10px;
       font-size: 16px;
       display: none;
+      opacity: 1;
+      transition: opacity 1s;
+    }
+
+    .show-notification {
+      opacity: 0;
     }
   </style>
 
@@ -166,16 +173,13 @@
       const notificationBox = document.querySelector('.notification-box');
       notificationBox.textContent = message;
       notificationBox.style.display = 'block';
-      let opacity = 1;
-      const interval = setInterval(() => {
-        opacity -= 0.05;
-        notificationBox.style.opacity = opacity;
-        if (opacity <= 0) {
-          clearInterval(interval);
+      notificationBox.classList.add('show-notification');
+      setTimeout(() => {
+        notificationBox.classList.remove('show-notification');
+        setTimeout(() => {
           notificationBox.style.display = 'none';
-          notificationBox.style.opacity = 1;
-        }
-      }, 100);
+        }, 1000);
+      }, 3000);
     }
 
     function toggleContactForm() {
@@ -255,6 +259,5 @@
   </div>
 
   <div class="notification-box"></div>
-
 </body>
 </html>
