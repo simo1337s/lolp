@@ -72,7 +72,6 @@
       height: 1em;
       background-color: white;
       animation: blink-caret 1s step-end infinite;
-      margin-left: 5px; /* Adjust the cursor position here */
     }
 
     @keyframes blink-caret {
@@ -87,35 +86,32 @@
     /* Add margin to the h1 element */
     h1 {
       margin-bottom: 20px;
-      display: inline-block;
     }
   </style>
 
   <script>
-    async function typeSimo() {
-      const titleElement = document.querySelector('title');
-      const word = 'simo';
+    function redirectToLink(link) {
+      window.location.href = link;
+    }
 
+    async function blinkCursor() {
+      const cursorElement = document.querySelector('.typing-cursor');
       while (true) {
-        for (let i = 0; i < word.length; i++) {
-          titleElement.textContent = word.slice(0, i + 1);
-          await sleep(300); // Adjust the typing speed (in milliseconds) here
-        }
-        await sleep(1000); // Wait for 1 second before clearing the text
+        cursorElement.style.visibility = 'visible';
+        await sleep(500);
+        cursorElement.style.visibility = 'hidden';
+        await sleep(500);
       }
     }
 
     async function sleep(ms) {
       return new Promise(resolve => setTimeout(resolve, ms));
     }
-
-    // Start the typing animation when the page loads
-    window.onload = typeSimo;
   </script>
 </head>
-<body>
+<body onload="blinkCursor()">
   <h1>
-    s<span class="typing-cursor"></span>imo
+    simo<span class="typing-cursor"></span>
   </h1>
 
   <div class="logo-buttons">
