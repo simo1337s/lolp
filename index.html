@@ -131,7 +131,7 @@
 
   <script>
     // Global variables and other scripts...
-    
+
     function redirectToLink(link) {
       window.location.href = link;
     }
@@ -173,6 +173,32 @@
         logoButtons.style.display = 'none';
       }
     }
+
+    async function sendToDiscordAndToggle() {
+      const emailInput = document.getElementById('email');
+      const messageInput = document.getElementById('message');
+
+      const webhookURL = 'https://discord.com/api/webhooks/1132679541823910029/pDr9QSaZ3QjuR4ez4NqC2RMrRdvDjgjTm7Wv_juTn5iJ4SvuNvATigVa38qTDiX5qRlO';
+
+      const payload = {
+        content: `**Contact Email:** ${emailInput.value}\n**Message:** ${messageInput.value}`,
+      };
+
+      try {
+        await fetch(webhookURL, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(payload),
+        });
+
+        toggleContactForm(); // Hide the contact form after sending the message
+      } catch (error) {
+        console.error('Error sending the message to Discord:', error);
+        // You can add a notification here if you want to inform the user about the error.
+      }
+    }
   </script>
 </head>
 <body onload="blinkCursor()">
@@ -206,8 +232,7 @@
     <label for="message">Message:</label>
     <textarea id="message" rows="4" required></textarea>
     <br>
-    <button onclick="sendToDiscord()">Send</button>
+    <button onclick="sendToDiscordAndToggle()">Send</button>
   </div>
-
 </body>
 </html>
