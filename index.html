@@ -67,10 +67,11 @@
 
     /* Add typing animation for the "simo" text */
     .typing-text {
+      width: 4em; /* Fixed width for the title element */
       border-right: 0.15em solid white;
       white-space: nowrap;
       overflow: hidden;
-      animation: typing 3s steps(4, end);
+      animation: typing 2s steps(4, end), blink-caret 0.75s step-end infinite;
     }
 
     @keyframes typing {
@@ -79,6 +80,15 @@
       }
       100% {
         width: 4em;
+      }
+    }
+
+    @keyframes blink-caret {
+      from, to {
+        border-color: transparent;
+      }
+      50% {
+        border-color: white;
       }
     }
   </style>
@@ -102,8 +112,8 @@
         logoButtons.style.visibility = 'visible';
 
         for (let i = 0; i < word.length; i++) {
-          titleElement.textContent = word.slice(0, i + 1);
-          await sleep(500); // Adjust the typing speed (in milliseconds) here
+          titleElement.textContent = '\u00A0' + word.slice(0, i + 1);
+          await sleep(300); // Adjust the typing speed (in milliseconds) here
         }
         await sleep(1000); // Wait for 1 second before clearing the text
         titleElement.textContent = '\u00A0'; // Clear the text by using the space character placeholder
