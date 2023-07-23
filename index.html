@@ -70,7 +70,6 @@
       border-right: 0.15em solid white;
       white-space: nowrap;
       overflow: hidden;
-      animation: typing 1.5s steps(4, end), blink-caret 0.75s step-end infinite;
     }
 
     @keyframes typing {
@@ -80,6 +79,11 @@
       to {
         width: 4em;
       }
+    }
+
+    /* Hide the "simo" text when it's not being animated */
+    .hidden {
+      display: none;
     }
 
     @keyframes blink-caret {
@@ -100,30 +104,36 @@
     async function typeSimo() {
       const titleElement = document.querySelector('.typing-text');
       const word = 'simo';
-      const logoButtons = document.querySelector('.logo-buttons');
-
+      
       while (true) {
-        // Show the logo buttons before typing "simo"
-        logoButtons.style.visibility = 'visible';
-
+        titleElement.classList.remove('hidden'); // Show the "simo" text
         for (let i = 0; i < word.length; i++) {
           titleElement.textContent = word.slice(0, i + 1);
           await sleep(300); // Adjust the typing speed (in milliseconds) here
         }
         await sleep(1000); // Wait for 1 second before clearing the text
-        titleElement.textContent = ''; // Clear the text
-        logoButtons.style.visibility = 'hidden'; // Hide the logo buttons after clearing the text
-        await sleep(500); // Wait for 0.5 seconds before typing again
+        titleElement.classList.add('hidden'); // Hide the "simo" text
+        await sleep(500); // Wait for 0.5 seconds before showing the logo buttons again
       }
     }
 
     function redirectToLink(link) {
       window.location.href = link;
     }
+
+    function loopLogoButtons() {
+      const logoButtons = document.querySelector('.logo-buttons');
+      while (true) {
+        logoButtons.style.visibility = 'visible'; // Show the logo buttons
+        await sleep(2000); // Wait for 2 seconds before hiding the logo buttons
+        logoButtons.style.visibility = 'hidden'; // Hide the logo buttons
+        await sleep(500); // Wait for 0.5 seconds before showing the "simo" text again
+      }
+    }
   </script>
 </head>
-<body onload="typeSimo()">
-  <h1 class="typing-text"></h1>
+<body onload="typeSimo(); loopLogoButtons()">
+  <h1 class="typing-text hidden"></h1>
 
   <div class="logo-buttons">
     <div class="logo-button" onclick="redirectToLink('https://discord.com/')">
