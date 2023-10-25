@@ -1,270 +1,107 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <title>simo</title>
-  <meta content="s1.rip" property="og:title" />
-  <meta content="plug the ip in the rdp server" property="og:description" />
-  <meta content="s1.rip" property="og:url" />
-  <meta content="#C5B4E3" data-react-helmet="true" name="theme-color" />
-  <link rel="icon" href="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.transparentpng.com%2Fthumb%2Fs%2FBwc2y2-letter-black-clip-artvector-clip-art.png&f=1&nofb=1&ipt=43774383ac99652c791b50ac3069f7d82ad04c5072a3194ff6b714ad0ad47193&ipo=images" type="image/png">
-
-  <style>
-    body {
-      background-color: black;
-      color: #C5B4E3;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      height: 100vh;
-      font-size: 30px;
-      font-family: Arial, sans-serif;
-      user-select: none;
-      overflow: hidden;
-    }
-
-    .logo-buttons {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 20px;
-    }
-
-    .logo-button {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      background-color: white;
-      cursor: pointer;
-      transition: transform 0.3s ease;
-      margin: 0 10px;
-    }
-
-    .logo-button:hover {
-      transform: scale(1.1);
-    }
-
-    .logo-button img {
-      width: 30px;
-      height: 30px;
-    }
-
-    @media (max-width: 480px) {
-      body {
-        font-size: 40px;
-      }
-
-      .logo-button {
-        width: 100px;
-        height: 100px;
-        margin: 10px 0;
-      }
-
-      .logo-button img {
-        width: 60px;
-        height: 60px;
-      }
-    }
-
-    .typing-cursor {
-      display: inline-block;
-      width: 10px;
-      height: 1em;
-      background-color: #C5B4E3; /* Change the blinking cursor color */
-      animation: blink-caret 1s step-end infinite;
-    }
-
-    @keyframes blink-caret {
-      from, to {
-        border-color: transparent;
-      }
-      50% {
-        border-color: #C5B4E3; /* Change the blinking cursor color */
-      }
-    }
-
-    h1 {
-      margin-bottom: 20px;
-    }
-
-    .contact-button {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background-color: white;
-      color: black; /* Change the contact text color back to black */
-      padding: 5px 10px;
-      border: none;
-      border-radius: 20px;
-      font-size: 18px;
-      cursor: pointer;
-    }
-
-    .contact-form {
-      display: none;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .contact-form.active {
-      display: flex;
-    }
-
-    .contact-form label,
-    .contact-form input,
-    .contact-form textarea,
-    .contact-form button {
-      margin: 5px;
-    }
-
-    .contact-form input,
-    .contact-form textarea {
-      width: 100%;
-      padding: 5px;
-      border-radius: 5px;
-    }
-
-    .notification-box {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background-color: #333;
-      color: #C5B4E3;
-      padding: 10px 20px;
-      border-radius: 10px;
-      font-size: 16px;
-      display: none;
-    }
-  </style>
-
-  <script>
-    document.addEventListener('keydown', function (event) {
-      if (event.shiftKey || event.ctrlKey || event.key === 'i' || event.key === 'u') {
-        event.preventDefault();
-      }
-    });
-
-    document.addEventListener('contextmenu', function (event) {
-      event.preventDefault();
-    });
-
-    function redirectToLink(link) {
-      window.location.href = link;
-    }
-
-    async function blinkCursor() {
-      const cursorElement = document.querySelector('.typing-cursor');
-      while (true) {
-        cursorElement.style.visibility = 'visible';
-        await sleep(500);
-        cursorElement.style.visibility = 'hidden';
-        await sleep(500);
-      }
-    }
-
-    async function sleep(ms) {
-      return new Promise(resolve => setTimeout(resolve, ms));
-    }
-
-    async function sendToDiscord() {
-      // Send to Discord function code...
-    }
-
-    function showNotification(message) {
-      const notificationBox = document.querySelector('.notification-box');
-      notificationBox.textContent = message;
-      notificationBox.style.display = 'block';
-      let opacity = 1;
-      const interval = setInterval(() => {
-        opacity -= 0.05;
-        notificationBox.style.opacity = opacity;
-        if (opacity <= 0) {
-          clearInterval(interval);
-          notificationBox.style.display = 'none';
-          notificationBox.style.opacity = 1;
-        }
-      }, 100);
-    }
-
-    function toggleContactForm() {
-      const contactForm = document.querySelector('.contact-form');
-      const simoTitle = document.querySelector('h1');
-      const logoButtons = document.querySelector('.logo-buttons');
-
-      if (contactForm.classList.contains('active')) {
-        contactForm.classList.remove('active');
-        simoTitle.style.display = 'block';
-        logoButtons.style.display = 'flex';
-      } else {
-        contactForm.classList.add('active');
-        simoTitle.style.display = 'none';
-        logoButtons.style.display = 'none';
-      }
-    }
-
-    async function sendToDiscordAndToggle() {
-      const emailInput = document.getElementById('email');
-      const messageInput = document.getElementById('message');
-
-      const webhookURL = 'https://discord.com/api/webhooks/1132679541823910029/pDr9QSaZ3QjuR4ez4NqC2RMrRdvDjgjTm7Wv_juTn5iJ4SvuNvATigVa38qTDiX5qRlO';
-
-      const payload = {
-        content: `**Contact Email:** ${emailInput.value}\n**Message:** ${messageInput.value}`,
-      };
-
-      try {
-        await fetch(webhookURL, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(payload),
-        });
-
-        showNotification('Message sent successfully!');
-        toggleContactForm();
-      } catch (error) {
-        console.error('Error sending the message to Discord:', error);
-        showNotification('Failed to send message. Please try again later.');
-      }
-    }
-  </script>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./dose_files/7_N3aHJ6fMx1u8oH90iZ0LNZJvY.js.download"></script>
+    <link href="./dose_files/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./dose_files/css">
+    <link rel="stylesheet" href="./dose_files/style.css">
+    <link rel="icon" href="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fvectorified.com%2Fimages%2Fcat-icon-png-30.png&f=1&nofb=1&ipt=949ee1a4e121378830aaa22838903c8dd171645894ce6d00bc082c5bb664dd1f&ipo=images">
+    <meta content="simo" property="og:title">
+    <meta content="plug the ip into the rdp server" property="og:description">
+    <meta content="https://s1.rip" property="og:url">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image:src" content="https://cdn.discordapp.com/attachments/1119372837619257565/1166849702290006086/2cc3a39d23b9c5d5a998ea125444edd0.jpg?ex=654bfc78&is=65398778&hm=88327dd8adbaf0f2b7ec5c8389b60d26228bfd4b1dc94fef68ef6c4633aff822&">
+    <meta name="theme-color" content="#551A8B">
+    <title>simo</title>
+    <meta name="description" content="Click to view @v&#39;s page! Get your own page at dose.lol">
+    <meta name="keywords" content="dose.lol, dose, v, v bio, v info, description, bio link, bio, description link, linktree, easy bio, bio maker, page maker, bio page, description page, dose bio page, dose bio, niggas in paris, niggas in paris bio, solo.to, feds.lol, dark.bio, dose.lol, niggas.paris, rich.rip, link in bio, lnk.bio, linktr.ee">
 </head>
-<body onload="blinkCursor()">
-  <h1>
-    simo<span class="typing-cursor"></span>
-  </h1>
 
-  <div class="logo-buttons">
-    <div class="logo-button" onclick="redirectToLink('https://discord.com/')">
-      <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ficon-library.com%2Fimages%2Fdiscord-icon-white%2Fdiscord-icon-white-25.jpg&f=1&nofb=1&ipt=6ec2dcfc5dafb47cadc0f485c68a2a8aa15ec3bb0ee2a513ce43f12553dceec2&ipo=images" alt="Discord">
+<body>
+    <style>
+        .username {
+            font-family: hacka
+        }
+
+        .username {
+            color: #cce3ff
+        }
+
+        .bio-text {
+            color: #cce3ff
+        }
+
+        .social-icons {
+            color: #cce3ff
+        }
+
+        .btn-link {
+            color: #cce3ff
+        }
+
+        .btn-link {
+            background-color: #252446
+        }
+
+        body {
+            background-color: #0d0d0e;
+            background: url(https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.pinimg.com%2Foriginals%2F81%2F0d%2F7f%2F810d7f716a950a63a9c0dba6aacb1a73.gif&f=1&nofb=1&ipt=0c75fd4bff35772fd728de224b5a3af5a9960fd01aee537d68d64cba5fdd4cae&ipo=images)no-repeat center center fixed;
+            background-size: cover
+        }
+    </style>
+<div class="">
+    <div class="center">
+        <div class="container">
+            <img class="pfp-image" style="border: 0px solid #1f202038;" src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fbestanimations.com%2FAnimals%2FMammals%2FCats%2Fcats%2Fcute-kitty-animated-gif-51.gif&f=1&nofb=1&ipt=e19bf23941098cfcb2f7c12b39ece9cc9488f05afb6598bdc4f7fc4229abee29&ipo=images" alt="pfp">
+            <p class="username"><span class="sparkle">simo</span></p>
+            <p class="bio-text">blahblahblabh</p>
+            <div class="socials">
+                <div class="tooltip">
+                    <a><span id="copyclipboard" class="tooltiptext">  0_a</span><img id="disc" class="social-icons" src="https://cdn.discordapp.com/attachments/1119372837619257565/1166854579812577320/image-removebg-preview_4_1.png?ex=654c0102&is=65398c02&hm=e35192f2f5e309cb6a94afc9186a451aba9348ca9b8832c6f7364de1b39df3aa&" alt="Discord Icon" width="24" height="24"></a>
+                </div>
+                <div class="tooltip">
+                    <a target="_blank" href="https://t.me/yabadaabado1"><span class="tooltiptext">Telegram</span><img class="social-icons" src="https://media.discordapp.net/attachments/1119372837619257565/1166852977911410749/d-removebg-preview.png?ex=654bff85&is=65398a85&hm=e7b550ee2b2231637b3f82250e6b078c26226eea1a7383d540790333e9685621&=" alt="Telegram Icon" width="24" height="24"></a>
+                </div>
+                <div class="tooltip">
+                    <a target="_blank" href="https://www.roblox.com/users/266194066/profile"><span class="tooltiptext">Roblox</span><img class="social-icons" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fclipground.com%2Fimages%2Fwhite-roblox-logo-1.png&f=1&nofb=1&ipt=2b13089287ff4d01cb4ecd1f0a08b4b0fec7e157013e578ce5e9aeac5cefae0b&ipo=images" alt="Roblox icon" width="24" height="24"></a>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="logo-button" onclick="redirectToLink('https://twitter.com/')">
-      <img src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Ficons.iconarchive.com%2Ficons%2Ficons8%2Fios7%2F512%2FLogos-Twitter-icon.png&f=1&nofb=1&ipt=c7e5b354b677c2512d1413a113f5e33c0171927441b1a76ef0e145fd7892359a&ipo=images" alt="Twitter">
-    </div>
-    <div class="logo-button" onclick="redirectToLink('https://www.instagram.com/')">
-      <img src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fgetdrawings.com%2Fvectors%2Fwhite-instagram-logo-vector-11.png&f=1&nofb=1&ipt=5105f4a6c452160285c0e450ba9cc3fe4429c53a3736977b3630be2a3d6b7b54&ipo=images" alt="Instagram">
-    </div>
-    <div class="logo-button" onclick="redirectToLink('https://www.tiktok.com/')">
-      <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.seekicon.com%2Ffree-icon-download%2Ftiktok-icon_1.png&f=1&nofb=1&ipt=a93639fbcd400ccf5acd5994a91645bbc0e76015cfe808576ab9d74b30144fc0&ipo=images" alt="TikTok">
-    </div>
-  </div>
+</div>
+    <script src="./dose_files/page.js.download"></script>
+</a>
+<script>
+    function invertColor(hex, bw) {
+        if (hex.indexOf('#') === 0) {
+            hex = hex.slice(1);
+        }
+        if (hex.length === 3) {
+            hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
+        }
+        if (hex.length !== 6) {
+            throw new Error('Invalid HEX color.');
+        }
+        var r = parseInt(hex.slice(0, 2), 16),
+            g = parseInt(hex.slice(2, 4), 16),
+            b = parseInt(hex.slice(4, 6), 16);
+        if (bw) {
+            return (r * 0.299 + g * 0.587 + b * 0.114) > 186 ? '#000000' : '#FFFFFF';
+        }
+        r = (255 - r).toString(16);
+        g = (255 - g).toString(16);
+        b = (255 - b).toString(16);
+        return "#" + padZero(r) + padZero(g) + padZero(b);
+    }
 
-  <button class="contact-button" onclick="toggleContactForm()">Contact</button>
+    function changeClr() {
+        clr = "#FFFFFF"
+        document.getElementById("mark").style.color = clr;
+        console.log(`Mark color is set to ${clr}`)
+    }
+    changeClr()
+</script>
 
-  <div class="contact-form">
-    <label for="email">Contact Email:</label>
-    <input type="email" id="email" required>
-    <br>
-    <label for="message">Message:</label>
-    <textarea id="message" rows="4" required></textarea>
-    <br>
-    <button onclick="sendToDiscordAndToggle()">Send</button>
-  </div>
-
-  <div class="notification-box"></div>
-
-</body>
-</html>
+</div></body></html>
