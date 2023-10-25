@@ -103,7 +103,7 @@
         }
     </style>
 </head>
-<body>
+<body style="overflow: hidden;">
   <div class="center">
       <div class="container profile-content">
           <img class="pfp-image" src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fbestanimations.com%2FAnimals%2FMammals%2FCats%2Fcats%2Fcute-kitty-animated-gif-51.gif&f=1&nofb=1&ipt=e19bf23941098cfcb2f7c12b39ece9cc9488f05afb6598bdc4f7fc4229abee29&ipo=images" alt="pfp">
@@ -125,5 +125,19 @@
           </a>
       </div>
   </div>
-  </body>
-  </html>
+
+  <script>
+    window.addEventListener('contextmenu', function (e) {
+        e.preventDefault();
+    });
+    document.addEventListener('selectstart', function (e) {
+        e.preventDefault();
+    });
+    document.addEventListener('keydown', function (e) {
+        if ((e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i')) || (e.ctrlKey && e.shiftKey && (e.key === 'J' || e.key === 'j')) || (e.ctrlKey && e.key === 'U' || e.key === 'u')) {
+            e.preventDefault();
+        }
+    });
+  </script>
+</body>
+</html>
