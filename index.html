@@ -1,107 +1,128 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="./dose_files/7_N3aHJ6fMx1u8oH90iZ0LNZJvY.js.download"></script>
-    <link href="./dose_files/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="./dose_files/css">
-    <link rel="stylesheet" href="./dose_files/style.css">
-    <link rel="icon" href="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fvectorified.com%2Fimages%2Fcat-icon-png-30.png&f=1&nofb=1&ipt=949ee1a4e121378830aaa22838903c8dd171645894ce6d00bc082c5bb664dd1f&ipo=images">
-    <meta content="simo" property="og:title">
-    <meta content="plug the ip into the rdp server" property="og:description">
-    <meta content="https://s1.rip" property="og:url">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image:src" content="https://cdn.discordapp.com/attachments/1119372837619257565/1166849702290006086/2cc3a39d23b9c5d5a998ea125444edd0.jpg?ex=654bfc78&is=65398778&hm=88327dd8adbaf0f2b7ec5c8389b60d26228bfd4b1dc94fef68ef6c4633aff822&">
-    <meta name="theme-color" content="#551A8B">
     <title>simo</title>
-    <meta name="description" content="Click to view @v&#39;s page! Get your own page at dose.lol">
-    <meta name="keywords" content="dose.lol, dose, v, v bio, v info, description, bio link, bio, description link, linktree, easy bio, bio maker, page maker, bio page, description page, dose bio page, dose bio, niggas in paris, niggas in paris bio, solo.to, feds.lol, dark.bio, dose.lol, niggas.paris, rich.rip, link in bio, lnk.bio, linktr.ee">
-</head>
+    <meta content="s1.rip" property="og:title" />
+    <meta content="plug the ip in the rdp server" property="og:description" />
+    <meta content="s1.rip" property="og:url" />
+    <meta content="#C5B4E3" data-react-helmet="true" name="theme-color" />
+    <link rel="icon" href="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fclipartcraft.com%2Fimages%2Ftransparent-circle-black.png&f=1&nofb=1&ipt=15c201a69ecae5cde0dff42427722791440df20bb7308cd70477edaedacadb96&ipo=images">
 
-<body>
     <style>
-        .username {
-            font-family: hacka
-        }
-
-        .username {
-            color: #cce3ff
-        }
-
-        .bio-text {
-            color: #cce3ff
-        }
-
-        .social-icons {
-            color: #cce3ff
-        }
-
-        .btn-link {
-            color: #cce3ff
-        }
-
-        .btn-link {
-            background-color: #252446
-        }
-
         body {
             background-color: #0d0d0e;
-            background: url(https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.pinimg.com%2Foriginals%2F81%2F0d%2F7f%2F810d7f716a950a63a9c0dba6aacb1a73.gif&f=1&nofb=1&ipt=0c75fd4bff35772fd728de224b5a3af5a9960fd01aee537d68d64cba5fdd4cae&ipo=images)no-repeat center center fixed;
-            background-size: cover
+            background: url(https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.pinimg.com%2Foriginals%2F81%2F0d%2F7f%2F810d7f716a950a63a9c0dba6aacb1a73.gif&f=1&nofb=1&ipt=0c75fd4bff35772fd728de224b5a3af5a9960fd01aee537d68d64cba5fdd4cae&ipo=images) no-repeat center center fixed;
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+        }
+        .center {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+        .container {
+            text-align: center;
+        }
+        .pfp-image {
+            width: 240px;
+            height: 240px;
+        }
+        .username {
+            font-family: 'starborn', sans-serif;
+            color: #cce3ff;
+            margin: 0;
+            line-height: 1;
+            font-size: 1.2em;
+        }
+        .bio-text {
+            font-family: 'starborn', sans-serif;
+            color: #cce3ff;
+            margin: 0;
+            line-height: 1;
+            font-size: 1.2em;
+        }
+        .socials {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 12px;
+        }
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+        .tooltiptext {
+            visibility: hidden;
+            width: 144px;
+            background-color: #000;
+            color: #fff;
+            text-align: center;
+            font-family: 'starborn', sans-serif;
+            border-radius: 6px;
+            padding: 6px;
+            position: absolute;
+            z-index: 1;
+            bottom: 180%;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+        @keyframes dropIn {
+            from {
+                transform: translateY(-24px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        .profile-content {
+            animation: dropIn 1s ease-in-out;
+        }
+        .social-icons {
+            color: #cce3ff;
+            width: 36px;
+            height: 36px;
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+        .social-icons:hover {
+            transform: scale(1.2);
         }
     </style>
-<div class="">
-    <div class="center">
-        <div class="container">
-            <img class="pfp-image" style="border: 0px solid #1f202038;" src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fbestanimations.com%2FAnimals%2FMammals%2FCats%2Fcats%2Fcute-kitty-animated-gif-51.gif&f=1&nofb=1&ipt=e19bf23941098cfcb2f7c12b39ece9cc9488f05afb6598bdc4f7fc4229abee29&ipo=images" alt="pfp">
-            <p class="username"><span class="sparkle">simo</span></p>
-            <p class="bio-text">blahblahblabh</p>
-            <div class="socials">
-                <div class="tooltip">
-                    <a><span id="copyclipboard" class="tooltiptext">  0_a</span><img id="disc" class="social-icons" src="https://cdn.discordapp.com/attachments/1119372837619257565/1166854579812577320/image-removebg-preview_4_1.png?ex=654c0102&is=65398c02&hm=e35192f2f5e309cb6a94afc9186a451aba9348ca9b8832c6f7364de1b39df3aa&" alt="Discord Icon" width="24" height="24"></a>
-                </div>
-                <div class="tooltip">
-                    <a target="_blank" href="https://t.me/yabadaabado1"><span class="tooltiptext">Telegram</span><img class="social-icons" src="https://media.discordapp.net/attachments/1119372837619257565/1166852977911410749/d-removebg-preview.png?ex=654bff85&is=65398a85&hm=e7b550ee2b2231637b3f82250e6b078c26226eea1a7383d540790333e9685621&=" alt="Telegram Icon" width="24" height="24"></a>
-                </div>
-                <div class="tooltip">
-                    <a target="_blank" href="https://www.roblox.com/users/266194066/profile"><span class="tooltiptext">Roblox</span><img class="social-icons" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fclipground.com%2Fimages%2Fwhite-roblox-logo-1.png&f=1&nofb=1&ipt=2b13089287ff4d01cb4ecd1f0a08b4b0fec7e157013e578ce5e9aeac5cefae0b&ipo=images" alt="Roblox icon" width="24" height="24"></a>
-                </div>
-            </div>
+</head>
+<body>
+<div class="center">
+    <div class="container profile-content">
+        <img class="pfp-image" src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fbestanimations.com%2FAnimals%2FMammals%2FCats%2Fcats%2Fcute-kitty-animated-gif-51.gif&f=1&nofb=1&ipt=e19bf23941098cfcb2f7c12b39ece9cc9488f05afb6598bdc4f7fc4229abee29&ipo=images" alt="pfp">
+        <p class="username"><span class="sparkle">simo</span></p>
+        <p class="bio-text">blahblahblabh</p>
+    </div>
+    <div class="socials">
+        <div class="tooltip">
+            <span class="tooltiptext">0_a</span>
+            <img class="social-icons" src="https://cdn.discordapp.com/attachments/1119372837619257565/1166854579812577320/image-removebg-preview_4_1.png?ex=654c0102&is=65398c02&hm=e35192f2f5e309cb6a94afc9186a451aba9348ca9b8832c6f7364de1b39df3aa&" alt="Discord Icon">
+        </div>
+        <div class "tooltip">
+            <span class="tooltiptext">Telegram</span>
+            <img class="social-icons" src="https://media.discordapp.net/attachments/1119372837619257565/1166852977911410749/d-removebg-preview.png?ex=654bff85&is=65398a85&hm=e7b550ee2b2231637b3f82250e6b078c26226eea1a7383d540790333e9685621&=" alt="Telegram Icon">
+        </div>
+        <div class="tooltip">
+            <span class="tooltiptext">Roblox</span>
+            <img class="social-icons" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fclipground.com%2Fimages%2Fwhite-roblox-logo-1.png&f=1&nofb=1&ipt=2b13089287ff4d01cb4ecd1f0a08b4b0fec7e157013e578ce5e9aeac5cefae0b&ipo=images" alt="Roblox icon">
         </div>
     </div>
 </div>
-    <script src="./dose_files/page.js.download"></script>
-</a>
-<script>
-    function invertColor(hex, bw) {
-        if (hex.indexOf('#') === 0) {
-            hex = hex.slice(1);
-        }
-        if (hex.length === 3) {
-            hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
-        }
-        if (hex.length !== 6) {
-            throw new Error('Invalid HEX color.');
-        }
-        var r = parseInt(hex.slice(0, 2), 16),
-            g = parseInt(hex.slice(2, 4), 16),
-            b = parseInt(hex.slice(4, 6), 16);
-        if (bw) {
-            return (r * 0.299 + g * 0.587 + b * 0.114) > 186 ? '#000000' : '#FFFFFF';
-        }
-        r = (255 - r).toString(16);
-        g = (255 - g).toString(16);
-        b = (255 - b).toString(16);
-        return "#" + padZero(r) + padZero(g) + padZero(b);
-    }
-
-    function changeClr() {
-        clr = "#FFFFFF"
-        document.getElementById("mark").style.color = clr;
-        console.log(`Mark color is set to ${clr}`)
-    }
-    changeClr()
-</script>
-
-</div></body></html>
+</body>
+</html>
