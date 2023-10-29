@@ -18,34 +18,39 @@
             background-size: cover;
             margin: 0;
             padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
         .center {
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
             flex-direction: column;
         }
         .container {
             text-align: center;
         }
+        .pfp-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
         .pfp-image {
             width: 240px;
             height: 240px;
         }
-        .username {
+        .username, .bio-text {
             font-family: 'starborn', sans-serif;
             color: #cce3ff;
             margin: 0;
             line-height: 1;
             font-size: 1.2em;
-        }
-        .bio-text {
-            font-family: 'starborn', sans-serif;
-            color: #cce3ff;
-            margin: 0;
-            line-height: 1;
-            font-size: 1.2em;
+            background: url(https://i.ibb.co/HgjQ6sM/udGakie.gif);
+            background-size: cover;
+            display: inline;
+            padding: 10px;
         }
         .socials {
             display: flex;
@@ -106,8 +111,10 @@
 <body style="overflow: hidden;">
   <div class="center">
       <div class="container profile-content">
-          <img class="pfp-image" src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fbestanimations.com%2FAnimals%2FMammals%2FCats%2Fcats%2Fcute-kitty-animated-gif-51.gif&f=1&nofb=1&ipt=e19bf23941098cfcb2f7c12b39ece9cc9488f05afb6598bdc4f7fc4229abee29&ipo=images" alt="pfp">
-          <p class="username"><span class="sparkle">simo</span></p>
+          <div class="pfp-container">
+              <img class="pfp-image" src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fbestanimations.com%2FAnimals%2FMammals%2FCats%2Fcats%2Fcute-kitty-animated-gif-51.gif&f=1&nofb=1&ipt=e19bf23941098cfcb2f7c12b39ece9cc9488f05afb6598bdc4f7fc4229abee29&ipo=images" alt="pfp">
+              <p class="username"><span class="sparkle">simo</span></p>
+          </div>
           <p class="bio-text">blahblahblabh</p>
       </div>
       <div class="socials">
@@ -130,9 +137,11 @@
     window.addEventListener('contextmenu', function (e) {
         e.preventDefault();
     });
+
     document.addEventListener('selectstart', function (e) {
         e.preventDefault();
     });
+
     document.addEventListener('keydown', function (e) {
         if ((e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i')) || (e.ctrlKey && e.shiftKey && (e.key === 'J' || e.key === 'j')) || (e.ctrlKey && e.key === 'U' || e.key === 'u')) {
             e.preventDefault();
